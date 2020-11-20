@@ -1,0 +1,781 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>reveal.js – The HTML Presentation Framework</title>
+
+		<meta name="description" content="A framework for easily creating beautiful presentations using HTML">
+		<meta name="author" content="Hakim El Hattab">
+
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+		<link rel="stylesheet" href="../dist/reset.css">
+		<link rel="stylesheet" href="../dist/reveal.css">
+		<link rel="stylesheet" href="../dist/theme/black.css" id="theme">
+
+		<!-- Theme used for syntax highlighting of code -->
+		<link rel="stylesheet" href="../plugin/highlight/monokai.css" id="highlight-theme">
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+				<section>
+					<a href="https://revealjs.com">
+						<img src="images/perl/kisspng-perl-6-programming-language-programmer-perl.jpg" alt="reveal.js logo" style="height: 180px; margin: 0 auto 4rem auto; background: transparent;" class="demo-logo">
+					</a>
+					<p>Practical Extraction and Reporting Language</p>
+					<p>
+						<small>Created by <a href="http://hakim.se">Larry Wall, 1987</a></small>
+					</p>
+				</section>
+
+				<section>
+					<h2>流行度</h2>
+					<a href="https://hellogithub.com/report/tiobe/">TIOBE 2020年7月排行榜第12位</a>
+					<br />
+					<a href="https://fossbytes.com/stack-overflow-highest-salary-programming-languages-2020/">
+						Highest Paying Programming Languages 2020: Perl, Go & Scala Dominate
+					</a>
+				</section>
+
+				<!-- Example of nested vertical slides -->
+				<section>
+					<section>
+						<h2>Is Perl Easy or Hard?</h2>
+						<p>Perl is easy to use, but sometimes hard to learn.</p>
+
+						<p style="font-style: italic; color: rgb(238, 178, 68)"> When he’s had the chance to make something easier for the programmer at the expense of being more difficult for the student, he’s decided in the programmer’s favor nearly every time</p>
+					</section>
+					<section>
+						<p>That’s because <br/> <span style='color: orange'>You’ll learn Perl only once, but use it again and again.</span></p>
+					</section>
+					<section>
+						<h2>Philosophy</h2>
+						<p>There is more than one way to do it.</p>
+					</section>
+				</section>
+
+				<section data-markdown>
+					<textarea data-template>
+						## Current State
+						- 解释型语言
+						- Perl 5（TigerSchedule使用5.32.0）
+						- Perl 6（[Raku](https://raku.org)）
+
+					</textarea>
+				</section>
+
+				<section data-markdown>
+					<textarea data-template>
+## Syntax
+- Variables
+- Control Flow
+- Conditional Expressions
+- References
+- Subroutines
+- Package and module
+- OOP
+- Moose
+					</textarea>
+				</section>
+
+        <section data-markdown>
+					<textarea data-template>
+            ## Variables
+            There are three primary data types of Perl:
+            - scalars
+            - arrays
+            - hashes
+					</textarea>
+        </section>
+
+        <section>
+          <p>Unlike many other languages that focus on things such as strings, integers, floats, and so on <br/>
+            Perl’s types <span style="color:rgb(238, 178, 68)">focus on how you organize your data, rather than what the data is.</span></p>
+        </section>
+
+<section data-markdown>
+  <textarea data-template>
+- Scalars
+  - numbers
+  - strings
+
+```perl
+my $celsius_temp = 37;
+my $nick_name    = 'Ovid';
+my ( $celsius_temp, $nick_name ) = ( 37, 'Ovid' );
+```
+  </textarea>
+</section>
+
+<section data-markdown>
+  <textarea data-template>
+Perl does not have specific boolean type
+
+`if` 判断中的表达式返回 true or false.
+
+```perl
+if ($x eq "foo") {
+}
+```
+
+- The number 0, the strings '0' and '', the empty list "()", and "undef"
+are all false in a boolean context.
+- All other values are true.
+
+
+</textarea>
+</section>
+
+<section data-markdown>
+  <textarea data-template>
+- Arrays
+
+```perl
+@colors=("red", "blue", "green");
+```
+  </textarea>
+</section>
+
+<section data-markdown>
+  <textarea data-template>
+- Hashes
+
+```perl
+%dog_owners=qw(Bob Fido Sue Spot Fred Teddy Sally Rex);
+```
+Or
+```perl
+%dog_owners=(
+    "Bob"        =>    "Fido",
+    "Sue"        =>    "Spot",
+    "Fred"       =>    "Teddy",
+    "Sally"      =>    "Rex"
+);
+```
+
+> The second method is more difficult to type, but easier to read
+  </textarea>
+</section>
+
+<section data-markdown>
+  <textarea data-template>
+## Note
+
+=> is the same as a comma in Perl. In other words, you could create a regular array with the following syntax:
+```
+@colors=("red" => "blue" => "yellow");
+```
+  </textarea>
+</section>
+
+<section data-markdown>
+  <textarea data-template>
+    ## Sigils
+    - $
+
+      scalar
+    - @
+
+      array
+    - %
+
+      hash
+  </textarea>
+</section>
+
+<section>
+<section data-markdown>
+  <textarea data-template>
+## 遍历Hash
+```perl
+my %dog_owners=qw(Bob Fido Sue Spot Fred Teddy Sally Rex);
+my @dogs = values (%dog_owners);
+my $spot = 0;
+foreach $name (values (%dog_owners)) {
+  if ($name eq "Spot") {
+     $spot++;
+  }
+}
+```
+```perl
+my $name = 'Sue';
+my %dogs = qw(Bob Fido Sue Spot Fred Teddy Sally Rex);
+while (($key, $value) = each (%dog_owners)) {
+   if ($name eq $value) {
+      print "$value is owned by $key\n";
+   }
+}
+```
+  </textarea>
+</section>
+<section data-markdown>
+  <textarea data-template>
+    ## 遍历Hash
+
+    - foreach
+    - while-each
+    - keys
+    - values
+    - sort
+  </textarea>
+</section>
+</section>
+
+<section data-markdown>
+  <textarea data-template>
+    ## Control Flow
+
+    - if
+    - unless
+    - while
+    - until
+    - foreach
+    - for
+  </textarea>
+</section>
+
+<section data-markdown>
+  <textarea data-template>
+    ## for loop
+```perl
+use feature qw/say/;
+my @weather_elements = ('wind', 'rain', 'snow', 'cloud', 'sunshine');
+for my $weather_element (@weather_elements) {
+  say $weather_element;
+}
+```
+  </textarea>
+</section>
+
+<section data-markdown>
+  <textarea data-template>
+    ## Conditional Expressions
+
+    - number
+
+    ```
+    ==, !=, >, <, >=, <=
+    ```
+    - string
+
+    ```
+    eq, ne, gt, lt, ge, le
+    ```
+    - pattern match
+
+    ```
+
+    ```
+  </textarea>
+</section>
+
+<section>
+<section data-markdown>
+  <textarea data-template>
+    ## References
+- A reference is a scalar variable whose value is a pointer to another Perl variable.
+
+- There are 2 ways of creating a reference in Perl.
+  - You can take a reference to an existing variable by putting a backslash, \\, in front of it.
+  - The other way is to create an anonymous reference and assign it to a variable.
+</textarea>
+</section>
+
+<section data-markdown>
+  <textarea data-template>
+### Way 1
+```perl
+# $aref now holds a reference to @array
+$aref = \@array;
+
+# $href now holds a reference to %hash
+$href = \%hash;
+
+# $sref now holds a reference to $scalar
+$sref = \$scalar;
+```
+</textarea>
+</section>
+
+<section data-markdown>
+  <textarea data-template>
+### Way 2
+
+```perl
+my @array       = ('apple', 'banana', 'pear');
+my $array_ref   = ['apple', 'banana', 'pear'];
+
+my %hash        = (one => 1, two => 2, three => 3);
+my $hash_ref    = {one => 1, two => 2, three => 3};
+```
+
+```perl
+$coderef = sub { print "Boink!\n" };
+```
+  </textarea>
+</section>
+<section data-markdown>
+  <textarea data-template>
+## Dereferencing
+
+To dereference a reference simply use $, @ or % as prefix of the reference variable depending on whether the reference is pointing to a scalar, array, or hash.
+
+```perl
+# $aref now holds a reference to @array
+$aref = \@array;
+print "Value of @aref is : ",  @$aref, "\n";
+
+# $href now holds a reference to %hash
+$href = \%hash;
+print "Value of %href is : ",  %$href, "\n";
+
+# $sref now holds a reference to $scalar
+$sref = \$scalar;
+print "Value of $var is : ", $$sref, "\n";
+```
+  </textarea>
+</section>
+</section>
+
+<section data-markdown>
+  <textarea data-template>
+## 实用工具
+1. 版本管理器
+
+```sh
+perlbrew install perl-5.8.3
+
+perlbrew switch perl-5.8.3
+```
+```sh
+$ perlbrew list
+  perl-5.10.1
+  perl-5.12.3
+  perl-5.14.0
+* perl-5.14.2
+  perl-5.8.3
+```
+  </textarea>
+</section>
+
+        <section data-markdown>
+					<textarea data-template>
+						## 包管理器CPAN
+						- cpan
+						- cpanminus
+					</textarea>
+        </section>
+
+        <section data-markdown>
+					<textarea data-template>
+						## Thanks!
+					</textarea>
+				</section>
+
+				<section data-visibility="hidden">
+					<h2>Hidden Slides</h2>
+					<p>
+						This slide is visible in the source, but hidden when the presentation is viewed. You can show all hidden slides by setting the `showHiddenSlides` config option to `true`.
+					</p>
+				</section>
+
+				<section data-auto-animate>
+					<h2 data-id="code-title">Pretty Code</h2>
+					<pre data-id="code-animation"><code class="hljs" data-trim data-line-numbers>
+						import React, { useState } from 'react';
+
+						function Example() {
+						  const [count, setCount] = useState(0);
+
+						  return (
+						    ...
+						  );
+						}
+					</code></pre>
+					<p>Code syntax highlighting courtesy of <a href="https://highlightjs.org/usage/">highlight.js</a>.</p>
+				</section>
+
+				<section data-auto-animate>
+					<h2 data-id="code-title">With animations</h2>
+					<pre data-id="code-animation"><code class="hljs" data-trim data-line-numbers="|4,8-11|17|22-24"><script type="text/template">
+						import React, { useState } from 'react';
+
+						function Example() {
+						  const [count, setCount] = useState(0);
+
+						  return (
+						    <div>
+						      <p>You clicked {count} times</p>
+						      <button onClick={() => setCount(count + 1)}>
+						        Click me
+						      </button>
+						    </div>
+						  );
+						}
+
+						function SecondExample() {
+						  const [count, setCount] = useState(0);
+
+						  return (
+						    <div>
+						      <p>You clicked {count} times</p>
+						      <button onClick={() => setCount(count + 1)}>
+						        Click me
+						      </button>
+						    </div>
+						  );
+						}
+					</script></code></pre>
+				</section>
+
+				<section>
+					<h2>Point of View</h2>
+					<p>
+						Press <strong>ESC</strong> to enter the slide overview.
+					</p>
+					<p>
+						Hold down the <strong>alt</strong> key (<strong>ctrl</strong> in Linux) and click on any element to zoom towards it using <a href="http://lab.hakim.se/zoom-js">zoom.js</a>. Click again to zoom back out.
+					</p>
+					<p>
+						(NOTE: Use ctrl + click in Linux.)
+					</p>
+				</section>
+
+				<section data-auto-animate data-auto-animate-easing="cubic-bezier(0.770, 0.000, 0.175, 1.000)">
+					<h2>Auto-Animate</h2>
+					<p>Automatically animate matching elements across slides with <a href="https://revealjs.com/auto-animate/">Auto-Animate</a>.</p>
+					<div class="r-hstack justify-center">
+						<div data-id="box1" style="background: #999; width: 50px; height: 50px; margin: 10px; border-radius: 5px;"></div>
+						<div data-id="box2" style="background: #999; width: 50px; height: 50px; margin: 10px; border-radius: 5px;"></div>
+						<div data-id="box3" style="background: #999; width: 50px; height: 50px; margin: 10px; border-radius: 5px;"></div>
+					</div>
+				</section>
+				<section data-auto-animate data-auto-animate-easing="cubic-bezier(0.770, 0.000, 0.175, 1.000)">
+					<div class="r-hstack justify-center">
+						<div data-id="box1" data-auto-animate-delay="0" style="background: cyan; width: 150px; height: 100px; margin: 10px;"></div>
+						<div data-id="box2" data-auto-animate-delay="0.1" style="background: magenta; width: 150px; height: 100px; margin: 10px;"></div>
+						<div data-id="box3" data-auto-animate-delay="0.2" style="background: yellow; width: 150px; height: 100px; margin: 10px;"></div>
+					</div>
+					<h2 style="margin-top: 20px;">Auto-Animate</h2>
+				</section>
+				<section data-auto-animate data-auto-animate-easing="cubic-bezier(0.770, 0.000, 0.175, 1.000)">
+					<div class="r-stack">
+						<div data-id="box1" style="background: cyan; width: 300px; height: 300px; border-radius: 200px;"></div>
+						<div data-id="box2" style="background: magenta; width: 200px; height: 200px; border-radius: 200px;"></div>
+						<div data-id="box3" style="background: yellow; width: 100px; height: 100px; border-radius: 200px;"></div>
+					</div>
+					<h2 style="margin-top: 20px;">Auto-Animate</h2>
+				</section>
+
+				<section>
+					<h2>Touch Optimized</h2>
+					<p>
+						Presentations look great on touch devices, like mobile phones and tablets. Simply swipe through your slides.
+					</p>
+				</section>
+
+				<section data-markdown>
+					<script type="text/template">
+						## Markdown support
+
+						Write content using inline or external Markdown.
+						Instructions and more info available in the [docs](https://revealjs.com/markdown/).
+
+						```[]
+						<section data-markdown>
+						  ## Markdown support
+
+						  Write content using inline or external Markdown.
+						  Instructions and more info available in the [docs](https://revealjs.com/markdown/).
+						</section>
+						```
+					</script>
+				</section>
+
+				<section>
+					<p>Add the <code>r-fit-text</code> class to auto-size text</p>
+					<h2 class="r-fit-text">FIT TEXT</h2>
+				</section>
+
+				<section>
+					<section id="fragments">
+						<h2>Fragments</h2>
+						<p>Hit the next arrow...</p>
+						<p class="fragment">... to step through ...</p>
+						<p><span class="fragment">... a</span> <span class="fragment">fragmented</span> <span class="fragment">slide.</span></p>
+
+						<aside class="notes">
+							This slide has fragments which are also stepped through in the notes window.
+						</aside>
+					</section>
+					<section>
+						<h2>Fragment Styles</h2>
+						<p>There's different types of fragments, like:</p>
+						<p class="fragment grow">grow</p>
+						<p class="fragment shrink">shrink</p>
+						<p class="fragment fade-out">fade-out</p>
+						<p>
+							<span style="display: inline-block;" class="fragment fade-right">fade-right, </span>
+							<span style="display: inline-block;" class="fragment fade-up">up, </span>
+							<span style="display: inline-block;" class="fragment fade-down">down, </span>
+							<span style="display: inline-block;" class="fragment fade-left">left</span>
+						</p>
+						<p class="fragment fade-in-then-out">fade-in-then-out</p>
+						<p class="fragment fade-in-then-semi-out">fade-in-then-semi-out</p>
+						<p>Highlight <span class="fragment highlight-red">red</span> <span class="fragment highlight-blue">blue</span> <span class="fragment highlight-green">green</span></p>
+					</section>
+				</section>
+
+				<section id="transitions">
+					<h2>Transition Styles</h2>
+					<p>
+						You can select from different transitions, like: <br>
+						<a href="?transition=none#/transitions">None</a> -
+						<a href="?transition=fade#/transitions">Fade</a> -
+						<a href="?transition=slide#/transitions">Slide</a> -
+						<a href="?transition=convex#/transitions">Convex</a> -
+						<a href="?transition=concave#/transitions">Concave</a> -
+						<a href="?transition=zoom#/transitions">Zoom</a>
+					</p>
+				</section>
+
+				<section id="themes">
+					<h2>Themes</h2>
+					<p>
+						reveal.js comes with a few themes built in: <br>
+						<!-- Hacks to swap themes after the page has loaded. Not flexible and only intended for the reveal.js demo deck. -->
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','css/theme/black.css'); return false;">Black (default)</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','css/theme/white.css'); return false;">White</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','css/theme/league.css'); return false;">League</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','css/theme/sky.css'); return false;">Sky</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','css/theme/beige.css'); return false;">Beige</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','css/theme/simple.css'); return false;">Simple</a> <br>
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','css/theme/serif.css'); return false;">Serif</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','css/theme/blood.css'); return false;">Blood</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','css/theme/night.css'); return false;">Night</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','css/theme/moon.css'); return false;">Moon</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','css/theme/solarized.css'); return false;">Solarized</a>
+					</p>
+				</section>
+
+				<section>
+					<section data-background="#dddddd">
+						<h2>Slide Backgrounds</h2>
+						<p>
+							Set <code>data-background="#dddddd"</code> on a slide to change the background color. All CSS color formats are supported.
+						</p>
+						<a href="#" class="navigate-down">
+							<img class="r-frame" style="background: rgba(255,255,255,0.1);" width="178" height="238" data-src="https://static.slid.es/reveal/arrow.png" alt="Down arrow">
+						</a>
+					</section>
+					<section data-background="https://static.slid.es/reveal/image-placeholder.png">
+						<h2>Image Backgrounds</h2>
+						<pre><code class="hljs html">&lt;section data-background="image.png"&gt;</code></pre>
+					</section>
+					<section data-background="https://static.slid.es/reveal/image-placeholder.png" data-background-repeat="repeat" data-background-size="100px">
+						<h2>Tiled Backgrounds</h2>
+						<pre><code class="hljs html" style="word-wrap: break-word;">&lt;section data-background="image.png" data-background-repeat="repeat" data-background-size="100px"&gt;</code></pre>
+					</section>
+					<section data-background-video="https://s3.amazonaws.com/static.slid.es/site/homepage/v1/homepage-video-editor.mp4" data-background-color="#000000">
+						<div style="background-color: rgba(0, 0, 0, 0.9); color: #fff; padding: 20px;">
+							<h2>Video Backgrounds</h2>
+							<pre><code class="hljs html" style="word-wrap: break-word;">&lt;section data-background-video="video.mp4,video.webm"&gt;</code></pre>
+						</div>
+					</section>
+					<section data-background="http://i.giphy.com/90F8aUepslB84.gif">
+						<h2>... and GIFs!</h2>
+					</section>
+				</section>
+
+				<section data-transition="slide" data-background="#4d7e65" data-background-transition="zoom">
+					<h2>Background Transitions</h2>
+					<p>
+						Different background transitions are available via the backgroundTransition option. This one's called "zoom".
+					</p>
+					<pre><code class="hljs javascript">Reveal.configure({ backgroundTransition: 'zoom' })</code></pre>
+				</section>
+
+				<section data-transition="slide" data-background="#b5533c" data-background-transition="zoom">
+					<h2>Background Transitions</h2>
+					<p>
+						You can override background transitions per-slide.
+					</p>
+					<pre><code class="hljs html" style="word-wrap: break-word;">&lt;section data-background-transition="zoom"&gt;</code></pre>
+				</section>
+
+				<section data-background-iframe="https://hakim.se" data-background-interactive>
+					<div style="position: absolute; width: 40%; right: 0; box-shadow: 0 1px 4px rgba(0,0,0,0.5), 0 5px 25px rgba(0,0,0,0.2); background-color: rgba(0, 0, 0, 0.9); color: #fff; padding: 20px; font-size: 20px; text-align: left;">
+						<h2>Iframe Backgrounds</h2>
+						<p>Since reveal.js runs on the web, you can easily embed other web content. Try interacting with the page in the background.</p>
+					</div>
+				</section>
+
+				<section>
+					<h2>Marvelous List</h2>
+					<ul>
+						<li>No order here</li>
+						<li>Or here</li>
+						<li>Or here</li>
+						<li>Or here</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>Fantastic Ordered List</h2>
+					<ol>
+						<li>One is smaller than...</li>
+						<li>Two is smaller than...</li>
+						<li>Three!</li>
+					</ol>
+				</section>
+
+				<section>
+					<h2>Tabular Tables</h2>
+					<table>
+						<thead>
+							<tr>
+								<th>Item</th>
+								<th>Value</th>
+								<th>Quantity</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>Apples</td>
+								<td>$1</td>
+								<td>7</td>
+							</tr>
+							<tr>
+								<td>Lemonade</td>
+								<td>$2</td>
+								<td>18</td>
+							</tr>
+							<tr>
+								<td>Bread</td>
+								<td>$3</td>
+								<td>2</td>
+							</tr>
+						</tbody>
+					</table>
+				</section>
+
+				<section>
+					<h2>Clever Quotes</h2>
+					<p>
+						These guys come in two forms, inline: <q cite="http://searchservervirtualization.techtarget.com/definition/Our-Favorite-Technology-Quotations">The nice thing about standards is that there are so many to choose from</q> and block:
+					</p>
+					<blockquote cite="http://searchservervirtualization.techtarget.com/definition/Our-Favorite-Technology-Quotations">
+						&ldquo;For years there has been a theory that millions of monkeys typing at random on millions of typewriters would
+						reproduce the entire works of Shakespeare. The Internet has proven this theory to be untrue.&rdquo;
+					</blockquote>
+				</section>
+
+				<section>
+					<h2>Intergalactic Interconnections</h2>
+					<p>
+						You can link between slides internally,
+						<a href="#/2/3">like this</a>.
+					</p>
+				</section>
+
+				<section>
+					<h2>Speaker View</h2>
+					<p>There's a <a href="https://revealjs.com/speaker-view/">speaker view</a>. It includes a timer, preview of the upcoming slide as well as your speaker notes.</p>
+					<p>Press the <em>S</em> key to try it out.</p>
+
+					<aside class="notes">
+						Oh hey, these are some notes. They'll be hidden in your presentation, but you can see them if you open the speaker notes window (hit 's' on your keyboard).
+					</aside>
+				</section>
+
+				<section>
+					<h2>Export to PDF</h2>
+					<p>Presentations can be <a href="https://revealjs.com/pdf-export/">exported to PDF</a>, here's an example:</p>
+					<iframe data-src="https://www.slideshare.net/slideshow/embed_code/42840540" width="445" height="355" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:3px solid #666; margin-bottom:5px; max-width: 100%;" allowfullscreen> </iframe>
+				</section>
+
+				<section>
+					<h2>Global State</h2>
+					<p>
+						Set <code>data-state="something"</code> on a slide and <code>"something"</code>
+						will be added as a class to the document element when the slide is open. This lets you
+						apply broader style changes, like switching the page background.
+					</p>
+				</section>
+
+				<section data-state="customevent">
+					<h2>State Events</h2>
+					<p>
+						Additionally custom events can be triggered on a per slide basis by binding to the <code>data-state</code> name.
+					</p>
+					<pre><code class="javascript" data-trim contenteditable style="font-size: 18px;">
+Reveal.on( 'customevent', function() {
+	console.log( '"customevent" has fired' );
+} );
+					</code></pre>
+				</section>
+
+				<section>
+					<h2>Take a Moment</h2>
+					<p>
+						Press B or . on your keyboard to pause the presentation. This is helpful when you're on stage and want to take distracting slides off the screen.
+					</p>
+				</section>
+
+				<section>
+					<h2>Much more</h2>
+					<ul>
+						<li>Right-to-left support</li>
+						<li><a href="https://revealjs.com/api/">Extensive JavaScript API</a></li>
+						<li><a href="https://revealjs.com/auto-slide/">Auto-progression</a></li>
+						<li><a href="https://revealjs.com/backgrounds/#parallax-background">Parallax backgrounds</a></li>
+						<li><a href="https://revealjs.com/keyboard/">Custom keyboard bindings</a></li>
+					</ul>
+				</section>
+
+				<section style="text-align: left;">
+					<h1>THE END</h1>
+					<p>
+						- <a href="https://slides.com">Try the online editor</a> <br>
+						- <a href="https://github.com/hakimel/reveal.js">Source code &amp; documentation</a>
+					</p>
+				</section>
+
+			</div>
+
+		</div>
+
+		<script src="../dist/reveal.js"></script>
+		<script src="../plugin/zoom/zoom.js"></script>
+		<script src="../plugin/notes/notes.js"></script>
+		<script src="../plugin/search/search.js"></script>
+		<script src="../plugin/markdown/markdown.js"></script>
+		<script src="../plugin/highlight/highlight.js"></script>
+		<script>
+
+			// Also available as an ES module, see:
+			// https://revealjs.com/initialization/
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				center: true,
+				hash: true,
+
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealZoom, RevealNotes, RevealSearch, RevealMarkdown, RevealHighlight ]
+			});
+
+		</script>
+
+	</body>
+</html>
