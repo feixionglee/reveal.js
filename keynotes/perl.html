@@ -491,11 +491,10 @@
               <li style="opacity: 30%;"> Control Flow</li>
               <li style="opacity: 30%;"> Conditional Expressions</li>
               <li style="opacity: 30%;"> References</li>
-              <li> Subroutines</li>
-              <li> Package and module</li>
-              <li> OOP</li>
-              <li> Moose</li>
-
+              <li>Subroutines</li>
+              <li>Package and module</li>
+              <li>OOP</li>
+              <li>Moose</li>
             </ul>
           </section>
         </section>
@@ -509,29 +508,50 @@
           </p>
         </section>
 
-        <section>
-          <h2 data-id="code-title"></h2>
+        <section style="text-align: left;">
+          <p><strong style="color: red">@EXPORT</strong> and <strong style="color: red">@EXPORT_OK</strong> are the two main variables used during export operation.</p>
 
+          <p><strong style="color: red">@EXPORT</strong> contains list of symbols (subroutines and variables) of the module to be exported into the caller namespace.</p>
+
+          <p><strong style="color: red">@EXPORT_OK</strong> does export of symbols on demand basis.</p>
+        </section>
+
+        <section>
+          <h2 data-id="code-title">export usage</h2>
           <pre data-id="code-animation"><code class="hljs" data-trim data-line-numbers>
-            use statement
-            BEGIN { require Module; Module->import( LIST ); }
+            package Arithmetic;
+
+            use Exporter;
+
+            # base class of this(Arithmetic) module
+            @ISA = qw(Exporter);
+
+            # Exporting the add and subtract routine
+            @EXPORT = qw(add subtract);
+            # Exporting the multiply and divide routine on demand basis.
+            @EXPORT_OK = qw(multiply divide);
+
+            sub add {}
+            sub subtract {}
+            sub multiply {}
+            sub divide {}
           </code></pre>
         </section>
 
         <section data-auto-animate>
-          <h2 data-id="code-title">Pretty Code</h2>
+          <h2 data-id="code-title">export usage</h2>
           <pre data-id="code-animation"><code class="hljs" data-trim data-line-numbers>
-            import React, { useState } from 'react';
+            #! /usr/bin/perl
 
-            function Example() {
-              const [count, setCount] = useState(0);
+            use strict;
+            use warnings;
 
-              return (
-                ...
-              );
-            }
+            use Arithmetic;
+            use Arithmetic qw(multiply divide);
+
+            print add(1,2),"\n";
+            print multiply(1,2),"\n";
           </code></pre>
-          <p>Code syntax highlighting courtesy of <a href="https://highlightjs.org/usage/">highlight.js</a>.</p>
         </section>
 
         <section data-auto-animate>
