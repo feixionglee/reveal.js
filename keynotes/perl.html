@@ -318,7 +318,57 @@
           </section>
         </section>
 
+        <section>
+          <section data-markdown>
+            <textarea data-template>
+              ## exists vs. defined
+              - the defined statement can be used to determine if a scalar variable has been set:
 
+              ```perl
+              if (defined ($total)) {
+                  print "The value is: ", $total +8, "\n";
+              } else {
+                  print 'The variable $total is not defined', "\n";
+              }
+              ```
+            </textarea>
+          </section>
+
+          <section data-markdown>
+            <textarea data-template>
+              - The defined statement can also be used to determine if a value of a key/value pair has been defined:
+
+              ```perl
+              if (defined ($dog_owners{Nick})) {
+                print "Nick has a dog\n";
+              } else {
+                print "Nick doesn't have a dog\n";
+              }
+              ```
+            </textarea>
+          </section>
+
+          <section data-markdown>
+            <textarea data-template>
+              - While the defined statement is used to determine if the value has been set, the exists statement is used to determine if the key exists:
+
+              ```perl
+              %dog_owners=(Bob, Fido, Sue, Spot, Fred, Teddy, Sally, Rex);
+              undef $dog_owners{Bob};
+              if (defined ($dog_owners{Bob})) {      #false in this case
+                print "Bob has a dog\n";
+              }  else {
+                print "Bob doesn't have a dog\n";
+              }
+              if (exists ($dog_owners{Bob})) {        #true in this case
+                print "Bob is a key in the array\n";
+              }  else {
+                print "Bob is not a key in the array\n";
+              }
+              ```
+            </textarea>
+          </section>
+        </section>
 
         <section>
           <section>
@@ -447,6 +497,27 @@
           </section>
 
           <section>
+            <h3>subroutine reference</h3>
+            <pre data-id="code-animation"><code class="hljs" data-trim data-line-numbers>
+              my $add_two = sub {
+                my $number = shift;
+                return $number + 2;
+              };
+              print $add_two->(7);
+            </code></pre>
+          </section>
+
+          <section>
+            <h3>scalar reference</h3>
+            <p>Naturally, you can take a reference to a scalar. The following prints Ovid:</p>
+            <pre data-id="code-animation"><code class="hljs" data-trim data-line-numbers>
+              my $name = 'Ovid';
+              my $ref  = $name;
+              print $$ref;
+            </code></pre>
+          </section>
+
+          <section>
             <h2 data-id="code-title">Dereferencing</h2>
             <p style="text-align: left;">To dereference a reference simply use $, @ or % as prefix of the reference variable depending on whether the reference is pointing to a scalar, array, or hash.</p>
             <pre data-id="code-animation"><code class="hljs" data-trim data-line-numbers>
@@ -529,6 +600,97 @@
               <li>Moose</li>
             </ul>
           </section>
+        </section>
+
+        <section data-markdown>
+          <textarea data-template>
+            ## Perl Utilities
+            - split
+            - join
+            - substr
+            - index
+            - rindex
+            - grep
+            - srand and rand
+            - sleep
+          </textarea>
+        </section>
+
+        <section data-markdown>
+          <aside>
+            https://learning.oreilly.com/library/view/advanced-perl-programming/9781484258637/html/489927_1_En_11_Chapter.xhtml
+          </aside>
+          <textarea data-template>
+            ## Advanced Features
+            - do vs eval
+
+            test-1.pl
+            ```
+            #!perl
+            #test-1.pl
+            print "var is $var\n";
+            ```
+
+            eval-1.pl
+            ```
+            #!perl
+            #eval-1.pl
+            my $var=100;
+            eval `type test-1.pl`;
+            ```
+
+            ```
+            ocs% perl eval-1.pl
+            var is 100
+            ```
+
+            do-2.pl
+            ```
+            #!perl
+            #do-2.pl
+            my $var=100;
+            do "test-1.pl";
+            ```
+
+            ```
+            ocs% perl do-2.pl
+            var is
+            ```
+            - cpanminus
+          </textarea>
+        </section>
+
+        <section data-markdown>
+          <aside class="notes">
+            https://learning.oreilly.com/library/view/advanced-perl-programming/9781484258637/html/489927_1_En_12_Chapter.xhtml
+          </aside>
+          <textarea data-template>
+            ## Advanced Data Structures
+            - Use the Readonly module to create constants
+            - Make large numbers more readable
+            - Make use of Scalar::Util
+            - Make use of List::Util
+            - Make use of List::MoreUtils
+            - List formatting
+            - On a related note...
+            - Understand slices
+            - Make use of Hash::Util
+            - Make use of Hash::MoreUtils
+            - Smart use of subscripts
+            - Understand the advantages and disadvantages of for, foreach, grep, and map
+            - Return based on regular expression matching
+            - Modifying the original array
+            - Using substitution to make a modified copy of the original
+            - Know different sort techniques
+            - Customized sorts
+              - Sort by file modification time
+              - Hash value sorting
+              - Complex sorting example
+            - The Orcish Maneuver
+            - Avoid using memory to store large data
+            - Creating temporary files
+            - OO nature of File::Temp
+          </textarea>
         </section>
 
         <section style="text-align: left;">
@@ -665,17 +827,57 @@
           </aside>
         </section>
 
-        <section>
-          <h2>Point of View</h2>
-          <p>
-            Press <strong>ESC</strong> to enter the slide overview.
-          </p>
-          <p>
-            Hold down the <strong>alt</strong> key (<strong>ctrl</strong> in Linux) and click on any element to zoom towards it using <a href="http://lab.hakim.se/zoom-js">zoom.js</a>. Click again to zoom back out.
-          </p>
-          <p>
-            (NOTE: Use ctrl + click in Linux.)
-          </p>
+        <section data-markdown>
+          <textarea data-template>
+            ## THREE RULES OF PERL OO
+            - A class is a package.
+            - An Object Is a Reference That Knows Its Class.
+            - A method is a subroutine.
+          </textarea>
+        </section>
+
+        <section data-auto-animate>
+          <h2 data-id="code-title">A class is a package</h2>
+          <pre data-id="code-animation"><code class="hljs" data-trim data-line-numbers>
+            my $aevar = Shopper::Personal->new({
+              name   => 'Ævar',
+              budget => 100
+            });
+          </code></pre>
+          <pre data-id="code-animation"><code class="hljs" data-trim data-line-numbers>
+            package Shopper::Personal;
+            use strict;
+            use warnings;
+
+            sub new {
+              # more code here
+            }
+          </code></pre>
+        </section>
+
+        <section data-auto-animate>
+          <h2 data-id="code-title">An Object Is a Reference That Knows Its Class</h2>
+          <pre data-id="code-animation"><code class="hljs" data-trim data-line-numbers>
+            OBJECT = bless REFERENCE, CLASSNAME;
+          </code></pre>
+          <pre data-id="code-animation"><code class="hljs" data-trim data-line-numbers>
+            my $aevar = Shopper::Personal->new({
+              name   => 'Ævar',
+              budget => 100
+            });
+          </code></pre>
+          <pre data-id="code-animation"><code class="hljs" data-trim data-line-numbers>
+            package Shopper::Personal;
+            use strict;
+            use warnings;
+            sub new {
+                my ( $class, $arg_for ) = @_;
+                return bless {
+                    name   => $arg_for->{name},
+                    budget => $arg_for->{budget},
+                }, $class;
+            }
+          </code></pre>
         </section>
 
         <section data-auto-animate data-auto-animate-easing="cubic-bezier(0.770, 0.000, 0.175, 1.000)">
